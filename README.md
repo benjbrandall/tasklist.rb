@@ -1,4 +1,4 @@
-![screenshot](http://benjbrandall.xyz/wp-content/uploads/2018/03/Snip20180322_21.png)
+![screenshot](http://benjbrandall.xyz/wp-content/uploads/2018/03/Snip20180322_21.png?raw=true "Screenshot")
 
 # tasklist.rb
 
