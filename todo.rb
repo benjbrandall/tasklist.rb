@@ -7,37 +7,36 @@ $log_list = []
 def menu
   print "> "
   choice = gets.chomp
-  if choice.include? "quit"
+  case choice
+  when "quit"
     quit
-  elsif choice == "log"
+  when "log"
     log
-  elsif choice.include? "new"
+  when /(new)/
     add(choice)
-  elsif choice == "debug"
+  when "debug"
     debug
-  elsif choice == "clear completed"
+  when "clear completed"
     clear_completed
-  elsif choice == "list completed"
+  when "list completed"
     list_complete
-  elsif choice == "list"
+  when "list"
     list
-  elsif choice == "complete all"
+  when "complete all"
     complete_all
-  elsif choice.include? "complete"
+  when /(complete \d)\b/
     complete(choice)
-  elsif choice.include? "search"
+  when /(complete \d..\d)/
+    complete_range(choice)
+  when /(search)/
     search(choice)
-  #elsif choice.include? "show log"
-    #show_log(choice)
-  elsif choice == "list logs"
-  show_logs
-  elsif choice == "backup logs"
+  when "list logs"
+    show_logs
+  when "backup logs"
     backup_logs
-  elsif choice == "help"
+  when "help"
     help
-#  elsif choice == "list last log"
-  #  show_last_log
-  elsif choice.include? "delete"
+  when /(delete)/
     delete(choice)
   else
     puts ""
@@ -83,7 +82,7 @@ def backup_logs
 end
 
 def add(choice)
-  task = choice[4..-1]
+  task = choice[4..-1] # chop the 'new' command off and get just task text
   if task.nil? == true
     puts "Empty task"
   else
@@ -176,6 +175,24 @@ def complete(task)
     list
   end
 end
+
+#def complete_range(task)
+  #task.chars.to_a
+  #num = task[9..-1] # cuts complete command from variable
+  #num.split('..').map{|d| Integer(d)}
+  #puts num[0]..num[1]
+
+#  deleted_task = $todolist.delete_at(num-1)
+#  if deleted_task.nil? == false
+#    $completed_list.push(deleted_task)
+#    # puts "#{$completed_list[-1]}"
+#    File.open("completed.dat", "a+"){|f| f.write("#{$completed_list[-1]}")}
+#    list
+#  else
+#    puts "Task not found"
+#    list
+#  end
+#  end
 
 def delete(task)
   unless task == ""
